@@ -1,18 +1,26 @@
 describes the variables, the data, and any transformations or work that you performed to clean up the data
 
-### About the setup
+## About the setup
 
 Wearable computing is a very active data science right now. Many companies are competing to develop new technology to appeal to new users.
 
 The data used in this study, from the uman Activity Recognition database, has been obtained from the recordings of 30 subjects performing activities of daily living (ADL) while carrying a waist-mounted smartphone (Samsung Galaxy S) with embedded inertial sensors (accelerometers).
 
-### Raw data
+## Raw data
 
-### Main goals
+### Labels
+* 1 -> WALKING
+* 2 -> WALKING_UPSTAIRS
+* 3 -> WALKING_DOWNSTAIRS
+* 4 -> SITTING
+* 5 -> STANDING
+* 6 -> LAYING
+
+## Main goals
 
 The business wants to assign ID# to the dogs, and codewords to the address to make this data anonymous. There isn't anything to do to the comments--since free text is all over the place.
 
-### Codebook
+## Codebook
 
 As the data in the Inertial folders is unlabelled data and this data is asked to be eliminated in step 2, it will not be processed since the beginning.
 
