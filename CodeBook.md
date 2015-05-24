@@ -1,5 +1,3 @@
-describes the variables, the data, and any transformations or work that you performed to clean up the data
-
 ## About the setup
 
 Wearable computing is a very active data science right now. Many companies are competing to develop new technology to appeal to new users.
@@ -8,7 +6,10 @@ The data used in this study, from the uman Activity Recognition database, has be
 
 ## Raw data
 
-### Labels
+- Features are normalized and bounded within [-1,1]. 
+- Each feature vector is a row on the text file.
+
+### Feature Labels
 
 The data labels for each feature have a very specific format related with how the measurements were obtained. The features come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ.
 
@@ -59,9 +60,11 @@ Additional vectors obtained by averaging the signals in a signal window sample. 
 * tBodyGyroMean
 * tBodyGyroJerkMean
 
-This notation has been kept as they are in the resulting data set as they are deemed sufficiently clear and using longer names will make the management of the data frames messier
+This notation has been kept as they are in the resulting data set. They are deemed sufficiently clear and using longer names will make the management of the data frames messier.
 
+### Activity Labels
 
+These labels are explained in the activity_labels.txt file and are also used without further modification.
 
 * 1 -> WALKING
 * 2 -> WALKING_UPSTAIRS
@@ -70,16 +73,26 @@ This notation has been kept as they are in the resulting data set as they are de
 * 5 -> STANDING
 * 6 -> LAYING
 
-## Main goals
+### Subject Labels
 
-The business wants to assign ID# to the dogs, and codewords to the address to make this data anonymous. There isn't anything to do to the comments--since free text is all over the place.
+The subjects included in the study are contained in two separate files. One file (subject_test.txt) contains the subjects in the 'test' set and the other file (subject_train.txt) contains the subjects from the 'train' set.
 
-## Codebook
+The subjects are described as a number, an id that will be kept as a number in the final data set as a numerical id is a good approach for identifying subjects in a set that contains values between 1 and 30.
 
-As the data in the Inertial folders is unlabelled data and this data is asked to be eliminated in step 2, it will not be processed since the beginning.
+## Procedure followed to produce the final data set
 
-The data coming from the test and train sets is first combined into a unified data frame in which the train data is appended to the test data frame.
+Considerations: as the data in the Inertial folders is unlabelled data and this data is asked to be eliminated in step 2, it will not be processed since the beginning.
+
+1. The data coming from the test and train sets is first combined into a unified data frame in which the train data is appended to the test data frame resulting in a unified data frame with 10299 rows.
+
+2. The second step is to label the data set with descriptive labels. The labels are taken from the file containing these labels (features.txt) and applied to the complete data frame. When studying the labels some duplicated labels are detected but as in the following steps the columns associated with these labels will be dispossed of, they are left there and eliminated afterwards. 
+
+3. The measurements on the mean and standard deviation are extracted from the data. To do this a subset of the labels containing the mean() and std() strings is constructed. meanFreq() is not considered as its definition is not considered as fitting with the mean of the direct measurements. With this subset of the variables a new data frame consisting of a subset of the original data frame derived from the previous steps is created.
+
+4. The following step is to apply descriptive activity names to name the activities in the data set to do this a column labelled 'activities' is added at the start of the data frame with the activities for each row detailed by name. Additionally and with the purpose of a more descriptive data set, another column is added containig the id of the test/train subject labelled 'subject_id ' and with values between 1 and 30.
+
+5. From the data set in step 4, an independent tidy data set with the average of each variable for each activity and each subject. 
+
+6. The data set is finally stored as a txt file created with write.table() using row.name=FALSE
 
 
-
-The dog's name was transformed into an IDNumber (unique) (1-50), the address was transformed into a factor, OwnerName (levels Alice, Bob, Charlie, Deborah, Ernest and Fred), time and date walked were counted to make WalksPerWeek1, WalksPerWeek2, and WalksPerWeek3. Week1 begins at 00:01UTC on July1, 2014, Week2 begins at 00:01UTC on July8, 2014, Week3 begins at 00:01UTC on July15, 2014. Health was summarized as HealthWeek1, HealthWeek2, and HealthWeek3. It is a factor with two levels, Well and Sick. If the dog was sick at any walk during that week, dog was marked sick, else dog was marked well. Dog Size was converted into a factor: Large, Medium and Small are the levels. Comments are dropped. Pay is transformed into PayWeek1, PayWeek2, PayWeek3, which is a factor that has two levels (Yes, and No) for correct pay paid during that week.
