@@ -79,20 +79,5 @@ The subjects included in the study are contained in two separate files. One file
 
 The subjects are described as a number, an id that will be kept as a number in the final data set as a numerical id is a good approach for identifying subjects in a set that contains values between 1 and 30.
 
-## Procedure followed to produce the final data set
-
-Considerations: as the data in the Inertial folders is unlabelled data and this data is asked to be eliminated in step 2, it will not be processed since the beginning.
-
-1. The data coming from the test and train sets is first combined into a unified data frame in which the train data is appended to the test data frame resulting in a unified data frame with 10299 rows.
-
-2. The second step is to label the data set with descriptive labels. The labels are taken from the file containing these labels (features.txt) and applied to the complete data frame. When studying the labels some duplicated labels are detected but as in the following steps the columns associated with these labels will be dispossed of, they are left there and eliminated afterwards. 
-
-3. The measurements on the mean and standard deviation are extracted from the data. To do this a subset of the labels containing the mean() and std() strings is constructed. meanFreq() is not considered as its definition is not considered as fitting with the mean of the direct measurements. With this subset of the variables a new data frame consisting of a subset of the original data frame derived from the previous steps is created.
-
-4. The following step is to apply descriptive activity names to name the activities in the data set to do this a column labelled 'activities' is added at the start of the data frame with the activities for each row detailed by name. Additionally and with the purpose of a more descriptive data set, another column is added containig the id of the test/train subject labelled 'subject_id ' and with values between 1 and 30.
-
-5. From the data set in step 4, an independent tidy data set with the average of each variable for each activity and each subject. 
-
-6. The data set is finally stored as a txt file created with write.table() using row.name=FALSE
 
 
